@@ -27,4 +27,19 @@ class CartLineTest {
     void refusesAPriceWithThreeDecimals() {
         assertThrows(IllegalArgumentException.class, () -> new CartLine("pen", new BigDecimal("1.005"), 1));
     }
+
+    @Test
+    void refusesAPriceWithAVeryLargeExponent() {
+        assertThrows(IllegalArgumentException.class, () -> new CartLine("pen", new BigDecimal("1e999999999"), 1));
+    }
+
+    @Test
+    void acceptsTheHighestPrice() {
+        assertEquals(new BigDecimal("1000000.00"), new CartLine("car", new BigDecimal("1000000.00"), 1).calculatePrice());
+    }
+
+    @Test
+    void refusesAPriceAboveTheHighestPrice() {
+        assertThrows(IllegalArgumentException.class, () -> new CartLine("car", new BigDecimal("1000000.01"), 1));
+    }
 }
