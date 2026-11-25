@@ -29,7 +29,7 @@ verify_programs() {
     for program in gh git; do
         command -v "${program}" > /dev/null || stop_with_message "The script needs ${program} on the PATH."
     done
-    gh auth status > /dev/null 2>&1 || stop_with_message "Log in with: gh auth login"
+    gh auth status > /dev/null 2>&1 || stop_with_message "Run gh auth login to log in."
 }
 
 find_repository() {
